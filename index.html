@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora 2.0</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="calculator_logo.PNG" alt="logo">
+    </header>
+
+    <main>
+        <section id="display">
+            <div>
+                <input type="text" id="valores" value="0123456789">
+            </div>
+            <div>
+                <input type="text" id="resultados">
+            </div>
+        </section>
+
+        <section id="botoes">
+            <div>
+                <button class="reset" name="ac">AC</button>
+                <button class="operadores" name="clear">c</button>
+                <button class="operadores" name="par_dir">:)</button>
+                <button class="operadores" name="porcento">%</button>
+            </div>
+            <div>
+                <button class="numbers" name="num7">7</button>
+                <button class="numbers" name="num8">8</button>
+                <button class="numbers" name="num9">9</button>
+                <button class="operadores" name="mult">x</button>
+            </div>
+            <div>
+                <button class="numbers" name="num4">4</button>
+                <button class="numbers" name="num5">5</button>
+                <button class="numbers" name="num6">6</button>
+                <button class="operadores" name="div">/</button>
+            </div>
+            <div>
+                <button class="numbers" name="num1">1</button>
+                <button class="numbers" name="num2">2</button>
+                <button class="numbers" name="num3">3</button>
+                <button class="operadores" name="menos">-</button>
+            </div>
+            <div>
+                <button class="numbers" name="num0">0</button>
+                <button class="numbers" name="ponto">.</button>
+                <button class="operadores" name="igual">=</button>
+                <button class="reset" name="soma">+</button>
+            </div>
+
+
+        </section>
+
+    <script>
+
+
+        var btn0 = document.querySelector('button[name=num0]');
+        var btn1 = document.querySelector('button[name=num1]');
+        var btn2 = document.querySelector('button[name=num2]');
+        var btn3 = document.querySelector('button[name=num3]');
+        var btn4 = document.querySelector('button[name=num4]');
+        var btn5 = document.querySelector('button[name=num5]');
+        var btn6 = document.querySelector('button[name=num6]');
+        var btn7 = document.querySelector('button[name=num7]');
+        var btn8 = document.querySelector('button[name=num8]');
+        var btn9 = document.querySelector('button[name=num9]');
+
+        var btnAc = document.querySelector('button[name=ac]');
+        var btnSoma = document.querySelector('button[name=soma]');
+        var btnIgual = document.querySelector('button[name=igual]');
+        var btnMenos = document.querySelector('button[name=menos]');
+        var btnMult = document.querySelector('button[name=mult]');
+        var btnDiv = document.querySelector('button[name=div]');
+
+        var btnClear = document.querySelector('button[name=clear]');
+
+        var display = document.querySelector('input#valores');
+        var displayResultado = document.querySelector('input#resultados');
+       
+        var resultado = 0;
+
+        var valor1 = 0;
+        var valor2 = 0;
+        var operation;
+
+
+
+        // OPERADORES
+
+        btnAc.onclick = function(){
+            display.value = 0;
+            displayResultado.value = 0;
+            resultado = 0;
+            valor1 = 0;
+        }
+
+        btnClear.onclick = function(){
+            display.value = 0;
+        }
+
+        btnSoma.onclick = function(){
+            valor1 = parseInt(display.value);
+            display.value = 0;
+            resultado = resultado + valor1;
+            operation = 'soma';
+            displayResultado.value = resultado;
+        }
+
+        btnMenos.onclick = function(){
+            operation = 'menos'
+            if (display.value == 0){
+                display.value = '-';
+            }
+            else{
+                displayResultado.value = parseInt(displayResultado.value) + parseInt(display.value);
+                display.value = '-';
+   /*              valor1 = parseInt(display.value);
+                display.value = 0;
+                resultado = resultado - valor1 ;
+                operation = 'menos';
+                displayResultado.value = resultado; */
+            }
+        }
+
+        btnDiv.onclick = function(){
+            operation = 'divisao';
+            if ((displayResultado.value == 0) || (displayResultado.value == null)){
+                valor1 = parseInt(display.value);
+                display.value = 0;
+                resultado = valor1;
+                displayResultado.value = resultado;
+            }else{
+                displayResultado.value = parseInt(displayResultado.value) / parseInt(display.value);
+                display.value = 0;
+            }
+        }
+
+        btnMult.onclick = function(){
+            operation = 'multiplicar';
+            if (displayResultado.value == 0 || displayResultado.value == null){
+                displayResultado.value = display.value;
+                display.value = 0;
+            }
+            else{
+                displayResultado.value = parseInt(displayResultado.value) * parseInt(display.value);
+                display.value = 0;
+            }
+        }
+
+        btnIgual.onclick = function(){
+
+            if (operation == 'soma'){
+                resultado += parseInt(display.value);
+                displayResultado.value = resultado;
+                display.value = 0;
+                return displayResultado.value;
+            }
+            else if(operation=='multiplicar'){
+                displayResultado.value = parseInt(displayResultado.value) * parseInt(display.value);
+                display.value = 0;
+            }
+            else if(operation =='divisao'){
+                displayResultado.value = displayResultado.value / display.value;
+                display.value = 0;
+            }           
+            else if (operation == 'menos'){
+                displayResultado.value = parseInt(displayResultado.value) + parseInt(display.value);
+                display.value = '-';
+            }
+            else{
+                displayResultado.value = resultado;
+            }
+        }
+
+
+
+        // NÚMEROS
+
+        btn0.onclick = function(){
+            display.value += 0;
+        }
+        btn1.onclick = function(){
+            if (display.value == 0){
+                display.value = 1;
+            }else{
+                display.value += 1;
+            }
+        }
+        btn2.onclick = function(){
+            if (display.value == 0){
+                display.value = 2;
+            }else{
+                display.value += 2;
+            }
+        }
+        btn3.onclick = function(){
+            if (display.value == 0){
+                display.value = 3;
+            }else{
+                display.value += 3;
+            }
+        }
+        btn4.onclick = function(){
+            (display.value == 0) ? (display.value = 4) : (display.value += 4);
+        }
+        btn5.onclick = function(){
+            (display.value == 0) ? (display.value = 5) : (display.value += 5);
+        }
+        btn6.onclick = function(){
+            (display.value == 0) ? (display.value = 6) : (display.value += 6);
+        }
+        btn7.onclick = function(){
+            (display.value == 0) ? (display.value = 7) : (display.value += 7);
+        }
+        btn8.onclick = function(){
+            (display.value == 0) ? (display.value = 8) : (display.value += 8);
+        }
+        btn9.onclick = function(){
+            (display.value == 0) ? (display.value = 9) : (display.value += 9);
+        }
+        
+
+
+
+
+
+    </script>
+
+
+
+
+
+    </main>
+
+
+</body>
+</html>
